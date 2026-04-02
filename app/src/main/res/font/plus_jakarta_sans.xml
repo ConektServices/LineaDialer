@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Downloadable fonts alternative.
+    Place this file at: res/font/plus_jakarta_sans.xml
+
+    This uses the Google Fonts provider so you don't need to bundle TTF files.
+    Reference it in Type.kt as:
+        val PlusJakartaSans = FontFamily(Font(R.font.plus_jakarta_sans))
+
+    OR — for full weight control — download individual TTFs from:
+        https://fonts.google.com/specimen/Plus+Jakarta+Sans
+    and place them in res/font/ with these exact names:
+        plus_jakarta_sans_light.ttf
+        plus_jakarta_sans_regular.ttf
+        plus_jakarta_sans_medium.ttf
+        plus_jakarta_sans_semibold.ttf
+        plus_jakarta_sans_bold.ttf
+        plus_jakarta_sans_extrabold.ttf
+-->
+<font-family xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:fontProviderAuthority="com.google.android.gms.fonts"
+    app:fontProviderPackage="com.google.android.gms"
+    app:fontProviderQuery="Plus Jakarta Sans">
+</font-family>

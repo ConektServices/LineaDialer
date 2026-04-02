@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Base theme: windowBackground transparent so Compose paints everything -->
+    <style name="Theme.Linea" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
+
+    <!-- Splash theme (core-splashscreen) -->
+    <style name="Theme.Linea.Splash" parent="Theme.SplashScreen">
+        <!-- Splash icon background — brand gradient approximated as solid -->
+        <item name="windowSplashScreenBackground">#0A0A0A</item>
+        <!-- Use your ic_launcher_foreground as the splash icon -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_launcher_foreground</item>
+        <item name="windowSplashScreenAnimationDuration">400</item>
+        <!-- Post-splash theme -->
+        <item name="postSplashScreenTheme">@style/Theme.Linea</item>
+    </style>
+
+</resources>

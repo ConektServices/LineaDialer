@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- ── Call permissions ──────────────────────────────────────────────── -->
+    <uses-feature
+        android:name="android.hardware.telephony"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.READ_CALL_LOG"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission android:name="android.permission.WRITE_CALL_LOG"
+        tools:ignore="SmsAndCallLogPolicy" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.WRITE_CONTACTS" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.MANAGE_OWN_CALLS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+
+    <!-- ── Notifications ─────────────────────────────────────────────────── -->
+    <!-- Required on API 33+ for any notification -->
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <!-- Required to show incoming call UI over lock screen -->
+    <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"
+        tools:ignore="FullScreenIntentPolicy" />
+
+    <!-- ── WorkManager / Reminders ───────────────────────────────────────── -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <!-- FOREGROUND_SERVICE required for startForeground() in InCallService -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
+        tools:ignore="ForegroundServicesPolicy" />
+    <!-- API 34+: must declare the type -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_PHONE_CALL"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.USE_EXACT_ALARM"
+        tools:ignore="ExactAlarmPolicy" />
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"
+        android:maxSdkVersion="32" />
+
+    <application
+        android:name=".LineaApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Linea.Splash"
+        android:enableOnBackInvokedCallback="true"
+        tools:targetApi="33">
+
+        <!-- ── Main launcher activity ──────────────────────────────────── -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:windowSoftInputMode="adjustResize"
+            android:launchMode="singleTask">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <!-- Register as default dialer for tel: URIs -->
+            <intent-filter>
+                <action android:name="android.intent.action.DIAL" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="voicemail" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.DIAL" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <action android:name="android.intent.action.DIAL" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="tel" />
+            </intent-filter>
+            <!-- Handle ACTION_CALL so outgoing calls route back to us -->
+            <intent-filter>
+                <action android:name="android.intent.action.CALL" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:scheme="tel" />
+            </intent-filter>
+        </activity>
+
+        <!-- ── Incoming call full-screen UI ────────────────────────────── -->
+        <activity
+            android:name=".ui.call.IncomingCallActivity"
+            android:exported="false"
+            android:showOnLockScreen="true"
+            android:turnScreenOn="true"
+            android:launchMode="singleInstance"
+            android:excludeFromRecents="true"
+            android:theme="@style/Theme.Linea"
+            android:windowSoftInputMode="adjustPan" />
+
+        <!-- ── InCallService — required for default dialer registration ── -->
+        <service
+            android:name=".telecom.LineaInCallService"
+            android:exported="true"
+            android:foregroundServiceType="phoneCall"
+            android:permission="android.permission.BIND_INCALL_SERVICE">
+            <meta-data
+                android:name="android.telecom.IN_CALL_SERVICE_UI"
+                android:value="true" />
+            <intent-filter>
+                <action android:name="android.telecom.InCallService" />
+            </intent-filter>
+        </service>
+
+        <!-- ── Decline call broadcast receiver ──────────────────────────── -->
+        <receiver
+            android:name=".telecom.DeclineCallReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.linea.dialer.ACTION_DECLINE_CALL" />
+            </intent-filter>
+        </receiver>
+
+        <!-- ── WorkManager ───────────────────────────────────────────────── -->
+        <provider
+            android:name="androidx.startup.InitializationProvider"
+            android:authorities="${applicationId}.androidx-startup"
+            android:exported="false"
+            tools:node="merge">
+            <meta-data
+                android:name="androidx.work.WorkManagerInitializer"
+                android:value="androidx.startup" />
+        </provider>
+
+    </application>
+</manifest>

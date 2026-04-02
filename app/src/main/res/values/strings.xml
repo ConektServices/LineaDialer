@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Linea</string>
+    <string name="linea_tagline">Your calls, beautifully organised.</string>
+
+    <!-- Permissions rationale -->
+    <string name="perm_call_log_rationale">Linea needs access to your call log to display recent calls.</string>
+    <string name="perm_contacts_rationale">Linea needs access to your contacts to display names and enable tagging.</string>
+    <string name="perm_call_phone_rationale">Linea needs permission to place calls on your behalf.</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_get_started">Get Started</string>
+
+    <!-- Screens -->
+    <string name="screen_recents">Recents</string>
+    <string name="screen_dialpad">Dial</string>
+    <string name="screen_contacts">Contacts</string>
+
+    <!-- Call states -->
+    <string name="call_state_calling">Calling…</string>
+    <string name="call_state_connected">Connected</string>
+    <string name="call_state_on_hold">On Hold</string>
+    <string name="call_state_ended">Call Ended</string>
+
+    <!-- Controls -->
+    <string name="ctrl_mute">Mute</string>
+    <string name="ctrl_unmute">Unmute</string>
+    <string name="ctrl_speaker">Speaker</string>
+    <string name="ctrl_earpiece">Earpiece</string>
+    <string name="ctrl_hold">Hold</string>
+    <string name="ctrl_resume">Resume</string>
+    <string name="ctrl_keypad">Keypad</string>
+    <string name="ctrl_note">Note</string>
+    <string name="ctrl_merge">Merge</string>
+    <string name="ctrl_end_call">End Call</string>
+
+    <!-- Tags -->
+    <string name="tag_client">Client</string>
+    <string name="tag_lead">Lead</string>
+    <string name="tag_partner">Partner</string>
+    <string name="tag_supplier">Supplier</string>
+    <string name="tag_personal">Personal</string>
+    <string name="tag_unknown">Unknown</string>
+
+    <!-- Notes -->
+    <string name="notes_placeholder">Type a note…</string>
+    <string name="notes_empty">No notes yet — tap + Add</string>
+    <string name="notes_save">Save Note</string>
+    <string name="notes_add">+ Add</string>
+    <string name="notes_cancel">Cancel</string>
+</resources>
